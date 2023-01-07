@@ -23,9 +23,9 @@ class MessageControllerTest {
     @DisplayName("Successful creation should have a status of created")
     void test_createMessageStatusSuccess() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                .post("/message")
-                .content(asJsonString(new Message(null, "My penguin")))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .post("/message")
+                        .content(asJsonString(new Message(null, "My penguin")))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 
