@@ -1,5 +1,6 @@
 package fi.rehuapro.messager;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class MessageController {
      * @return the generated id for the message
      */
     @PostMapping("/message")
+    @ResponseStatus( HttpStatus.CREATED )
     public String createMessage(@RequestBody Message requestMessage) {
         var id = UUID.randomUUID().toString();
         var message = new Message(id, requestMessage.content());
