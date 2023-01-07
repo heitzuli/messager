@@ -9,8 +9,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -27,6 +29,19 @@ class MessageControllerTest {
                         .content(asJsonString(new Message(null, "My penguin")))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("Successful creation should return a message with an ID")
+    void test_createMessageWithID() throws Exception {
+        MvcResult result = mvc.perform(MockMvcRequestBuilders
+                        .post("/message")
+                        .content(asJsonString(new Message(null, "My penguin")))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String content = result.getResponse().getContentAsString();
+        assertEquals(36, content.length(), "Id not equal in length");
+
     }
 
     public String asJsonString(final Object object) {
