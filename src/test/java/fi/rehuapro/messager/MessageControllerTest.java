@@ -2,6 +2,7 @@ package fi.rehuapro.messager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,7 +20,8 @@ class MessageControllerTest {
     private MockMvc mvc;
 
     @Test
-    void createMessage() throws Exception {
+    @DisplayName("Successful creation should have a status of created")
+    void test_createMessageStatusSuccess() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                 .post("/message")
                 .content(asJsonString(new Message(null, "My penguin")))
